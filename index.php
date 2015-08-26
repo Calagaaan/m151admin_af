@@ -1,11 +1,6 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+include 'dbfunction.php';
+connexionBase();
 ?>
 <html>
     <head>
@@ -16,7 +11,8 @@
     </head>
     <body>
         <h1>Formulaire d'inscription</h1>
-        <form id="monformulaire" method="post" action="#">
+        <div>
+        <form id="monformulaire" method="post" action="dbfunction.php">
             <label>Nom : </label><input  type="text" name="nom" /><br /><br />
             <label>Prénom : </label><input type="text" name="prenom" /><br /><br />
             <label>Email : </label><input type="email" name="email" /><br /><br />
@@ -25,8 +21,9 @@
             <label>Mot de passe : </label><input type="password" name="pass" /><br /><br />
             <label>Confirmation : </label><input type="password" name="passconfirm" /><br /><br />
             <label>Description de vous : </label><textarea name="description"></textarea><br /><br />
-            <input id="reset" type='reset' value='Rénitialiser' /><input id="submit" type="submit" value="Envoyer" /></div>
+            <input id="reset" name="reset" type='reset' value='Rénitialiser' /><input name="submit" id="submit" type="submit" value="Envoyer" />
         </form>
+    </div>
     </body>
 </html>
 

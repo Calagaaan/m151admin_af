@@ -19,9 +19,9 @@ and open the template in the editor.
 }
 
 #monformulaire label {
-	display: block;
-	width: 150px;
-	float: left;       
+    display: block;
+    width: 150px;
+    float: left;       
 }
 
 #submit {
