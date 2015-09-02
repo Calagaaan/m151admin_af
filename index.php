@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <?php
 include 'dbfunction.php';
-connexionBase();
+getConnexion();
 ?>
 <html>
     <head>
