@@ -15,7 +15,7 @@ include 'phpToHtml.php';
         <h1>Utilisateurs dans la base de données</h1>
         <div>
         <?php
-            buildTable(selectAllUsers());        
+            buildTable(selectAllUsers());      
         ?>
         </div>
     </body>
