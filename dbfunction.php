@@ -9,7 +9,8 @@ function getConnexion()
     {
         try 
         {
-            $bdd = new PDO('mysql:'. HOST .'=;dbname='. DBNAME .'', USER, PASS);
+            $bdd = new PDO('mysql:host='.HOST.';dbname='.DBNAME, USER, PASS);
+            $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             /* mysql:127.0.0.1=;dbname=m151adminaf,m151admin,m151admin */
         } 
         catch (PDOException $e) 
@@ -50,5 +51,16 @@ function ajouterUser()
     $data->bindParam(':description', $description, PDO::PARAM_STR);
     $data->execute();
     
+    header("Location:index.php");
 }
+
+function selectAllUsers()
+{
+    $RequeteSql =  'SELECT * FROM user';
+    $RequeteData = getConnexion()->query($RequeteSql);
+    return $RequeteData;   
+}
+
+
+
 
