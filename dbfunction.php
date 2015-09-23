@@ -105,9 +105,9 @@ function selectAllUsers()
     return $RequeteData;   
 }
 
-function selectOneUser()
+function selectOneUser($id)
 {
-    $RequeteSql =  'SELECT * FROM user WHERE idUser ='.$_GET['id'].';';
+    $RequeteSql =  'SELECT * FROM user WHERE idUser ='.$id.';';
     $RequeteData = getConnexion()->query($RequeteSql);
     return $RequeteData;   
 }

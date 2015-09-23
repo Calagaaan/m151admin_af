@@ -21,7 +21,8 @@ include 'phpToHtml.php';
             }
             else
             {
-                buildTableOneUser(selectOneUser());
+                $id = $_REQUEST['id'];
+                buildTableOneUser(selectOneUser($id));
             }
         ?>
         </div>

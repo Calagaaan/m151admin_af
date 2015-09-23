@@ -15,8 +15,9 @@ $desc = "";
 
 if(isset($_GET['id']))
 {
+    $id = $_REQUEST['id'];
     $modifUser = true;
-    $tableau = selectOneUser();
+    $tableau = selectOneUser($id);
                 
     foreach ($tableau as $data) 
     {
