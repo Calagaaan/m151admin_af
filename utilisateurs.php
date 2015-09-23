@@ -15,7 +15,14 @@ include 'phpToHtml.php';
         <h1>Utilisateurs dans la base de données</h1>
         <div>
         <?php
-            buildTable(selectAllUsers());     
+            if(!isset($_GET['id']))
+            {
+                buildTable(selectAllUsers());
+            }
+            else
+            {
+                buildTableOneUser(selectOneUsers());
+            }
         ?>
         </div>
     </body>

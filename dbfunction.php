@@ -61,6 +61,15 @@ function selectAllUsers()
     return $RequeteData;   
 }
 
+function selectOneUsers()
+{
+    $RequeteSql =  'SELECT * FROM user WHERE idUser ='.$_GET['id'].';';
+    $RequeteData = getConnexion()->query($RequeteSql);
+    return $RequeteData;   
+}
+
+
+
 
 
 
