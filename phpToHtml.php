@@ -8,7 +8,7 @@ function buildTable($tableau)
         $from = new DateTime($data['dateNaissance']);
         $to   = new DateTime('today');
         
-        echo '<tr><td>'.$data['nom'].'</td><td>'.$data['prenom'].'</td><td>'.$data['email'].'</td><td>'.$data['pseudo'].'</td><td>'.$from->diff($to)->y.'</td><td><a href="utilisateurs.php?id='.$data['idUser'].'">Détails</a></td></tr>';
+        echo '<tr><td>'.$data['nom'].'</td><td>'.$data['prenom'].'</td><td>'.$data['email'].'</td><td>'.$data['pseudo'].'</td><td>'.$from->diff($to)->y.'</td><td><a href="utilisateurs.php?id='.$data['idUser'].'">Détails</a></td><td><a href="index.php?id='.$data['idUser'].'">Modifier</a></td></tr>';
     }
     echo '</table>';
 }
