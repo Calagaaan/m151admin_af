@@ -26,10 +26,17 @@ function getConnexion()
 
 if(isset($_REQUEST['envoyer']))
 {
-    ajouterUser();
+    $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
+    $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+    $dateNaissance = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_SPECIAL_CHARS);
+    $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_SPECIAL_CHARS);
+    $password = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_SPECIAL_CHARS);
+    $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_SPECIAL_CHARS);
+    ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description);
 }
 
-function ajouterUser()
+if(isset($_REQUEST['update']))
 {
     $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
     $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -38,7 +45,12 @@ function ajouterUser()
     $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_SPECIAL_CHARS);
     $password = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_SPECIAL_CHARS);
     $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_SPECIAL_CHARS);
-    
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+    updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id);
+}
+
+function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description)
+{
     $password = sha1($password);
     
     $data = getConnexion()->prepare('INSERT INTO user VALUES("", :nom, :prenom, :email, :date, :pseudo, :pass, :description)');
@@ -52,6 +64,38 @@ function ajouterUser()
     $data->execute();
     
     header("Location:index.php");
+}
+
+function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id) {
+    
+    // Si l'utilisateur n'a pas modifié son mot de passe
+    if($password == "")
+    {
+        $data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, description=:description WHERE idUser='.$id.'');
+        $data->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $data->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+        $data->bindParam(':email', $email, PDO::PARAM_STR);
+        $data->bindParam(':date', $dateNaissance, PDO::PARAM_STR);
+        $data->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+        $data->bindParam(':description', $description, PDO::PARAM_STR);
+        $data->execute();
+    }
+    else
+    {
+        $password = sha1($password);
+        
+        $data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, password=:pass, description=:description WHERE idUser='.$id.'');
+        $data->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $data->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+        $data->bindParam(':email', $email, PDO::PARAM_STR);
+        $data->bindParam(':date', $dateNaissance, PDO::PARAM_STR);
+        $data->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+        $data->bindParam(':pass', $password, PDO::PARAM_STR);
+        $data->bindParam(':description', $description, PDO::PARAM_STR);
+        $data->execute();
+    }
+    
+    header("Location:utilisateurs.php");
 }
 
 function selectAllUsers()

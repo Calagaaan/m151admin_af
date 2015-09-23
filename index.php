@@ -43,6 +43,7 @@ if(isset($_GET['id']))
                 
                 foreach ($tableau as $data) 
                 {
+                    $id = $data['idUser'];
                     $nom = $data['nom'];
                     $prenom = $data['prenom'];
                     $email = $data['email'];
@@ -52,15 +53,15 @@ if(isset($_GET['id']))
                 }
                 
             ?>
-            <form id="monformulaire" method="post" action="dbfunction.php">
+            <form id="monformulaire" method="post" action="dbfunction.php?id=<?php echo $id; ?>">
                 <label for="nom" >Nom : </label><input id="nom" type="text" name="nom" value="<?php echo $nom; ?>" required /><br /><br />
                 <label for="prenom" >Prénom : </label><input id="prenom" type="text" name="prenom" value="<?php echo $prenom; ?>" required /><br /><br />
                 <label for="email" >Email : </label><input id="email" type="email" name="email" value="<?php echo $email; ?>" required /><br /><br />
                 <label for="date" >Date de naissance : </label><input id="date" type="date" name="date" value="<?php echo $dateNaissance; ?>" required /><br /><br />
                 <label for="pseudo" >Pseudo : </label><input id="pseudo" type="text" name="pseudo" value="<?php echo $pseudo; ?>" required /><br /><br />
-                <label for="pass" >Mot de passe : </label><input id="pass" type="password" name="pass" placeholder="Leave blank to not modify." required /><br /><br />
-                <label for="description" >Description de vous : </label><textarea id="description" name="description" value="<?php echo $desc; ?>" ></textarea><br /><br />
-                <input id="reset" name="reset" type='reset' value='Rénitialiser' /><input name="envoyer" id="submit" type="submit" value="Envoyer" />
+                <label for="pass" >Mot de passe : </label><input id="pass" type="password" name="pass" placeholder="Leave blank to not modify." /><br /><br />
+                <label for="description" >Description de vous : </label><textarea id="description" name="description" ><?php echo $desc; ?></textarea><br /><br />
+                <input id="reset" name="reset" type='reset' value='Rénitialiser' /><input name="update" id="submit" type="submit" value="Envoyer" />
             </form>
             <?php
             }
