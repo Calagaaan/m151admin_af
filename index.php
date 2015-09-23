@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <?php
+include 'dbfunction.php';
+include 'phpToHtml.php';
 
+// On part du principe que l'on n'est pas sur la page pour modifier un utilisateur
+$modifUser = false;
+
+if(isset($_GET['id']))
+{
+    $modifUser = true;
+}
 ?>
 <html>
     <head>
@@ -12,6 +21,10 @@
     <body>
         <h1>Formulaire d'inscription</h1>
         <div>
+            <?php
+            if($modifUser == FALSE)
+            {
+            ?>
             <form id="monformulaire" method="post" action="dbfunction.php">
                 <label for="nom" >Nom : </label><input id="nom" type="text" name="nom" required /><br /><br />
                 <label for="prenom" >Prénom : </label><input id="prenom" type="text" name="prenom" required /><br /><br />
@@ -22,6 +35,36 @@
                 <label for="description" >Description de vous : </label><textarea id="description" name="description" ></textarea><br /><br />
                 <input id="reset" name="reset" type='reset' value='Rénitialiser' /><input name="envoyer" id="submit" type="submit" value="Envoyer" />
             </form>
+            <?php
+            }
+            else
+            {
+                $tableau = selectOneUser();
+                
+                foreach ($tableau as $data) 
+                {
+                    $nom = $data['nom'];
+                    $prenom = $data['prenom'];
+                    $email = $data['email'];
+                    $dateNaissance = $data['dateNaissance'];
+                    $pseudo = $data['pseudo'];
+                    $desc = $data['description'];
+                }
+                
+            ?>
+            <form id="monformulaire" method="post" action="dbfunction.php">
+                <label for="nom" >Nom : </label><input id="nom" type="text" name="nom" value="<?php echo $nom; ?>" required /><br /><br />
+                <label for="prenom" >Prénom : </label><input id="prenom" type="text" name="prenom" value="<?php echo $prenom; ?>" required /><br /><br />
+                <label for="email" >Email : </label><input id="email" type="email" name="email" value="<?php echo $email; ?>" required /><br /><br />
+                <label for="date" >Date de naissance : </label><input id="date" type="date" name="date" value="<?php echo $dateNaissance; ?>" required /><br /><br />
+                <label for="pseudo" >Pseudo : </label><input id="pseudo" type="text" name="pseudo" value="<?php echo $pseudo; ?>" required /><br /><br />
+                <label for="pass" >Mot de passe : </label><input id="pass" type="password" name="pass" placeholder="Leave blank to not modify." required /><br /><br />
+                <label for="description" >Description de vous : </label><textarea id="description" name="description" value="<?php echo $desc; ?>" ></textarea><br /><br />
+                <input id="reset" name="reset" type='reset' value='Rénitialiser' /><input name="envoyer" id="submit" type="submit" value="Envoyer" />
+            </form>
+            <?php
+            }
+            ?>
         </div>
     </body>
 </html>

@@ -21,7 +21,7 @@ include 'phpToHtml.php';
             }
             else
             {
-                buildTableOneUser(selectOneUsers());
+                buildTableOneUser(selectOneUser());
             }
         ?>
         </div>
