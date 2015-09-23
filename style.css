@@ -33,3 +33,14 @@ and open the template in the editor.
     position: absolute;
     left: 230px;
 }
+
+a {
+    padding-left: 15px;
+    padding-right: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: red;
+}
