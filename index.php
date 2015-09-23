@@ -73,6 +73,7 @@ if(isset($_GET['id']))
                     {
                 ?>
                 <input name="update" id="submit" type="submit" value="Envoyer" />
+                <a href="utilisateurs.php">Retour</a>
                 <?php
                     }
                 ?>
