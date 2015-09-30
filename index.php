@@ -13,9 +13,10 @@ $dateNaissance = "";
 $pseudo = "";
 $desc = "";
 
+// On vérifie si une variable get id est présente. Si c'est le cas, c'est qu'on est là pour modifier un utilisateur.
 if(isset($_GET['id']))
 {
-    $id = $_REQUEST['id'];
+    $id = $_REQUEST['id']; 
     $modifUser = true;
     $tableau = selectOneUser($id);
                 
