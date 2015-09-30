@@ -56,7 +56,7 @@ function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, 
     $data->bindParam(':description', $description, PDO::PARAM_STR);
     $data->execute();
     
-    header("Location:index.php");
+    redirect("index.php");
 }
 
 function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id) {
@@ -83,7 +83,7 @@ function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $
     $data->execute();
     
     // On renvoie l'utilisateur sur la page d'affichage des utilisateurs
-    header("Location:utilisateurs.php");
+    redirect("utilisateurs.php");
 }
 
 function selectAllUsers()
@@ -106,8 +106,8 @@ function deleteUser($id)
     getConnexion()->query($RequeteSql);
 }
 
-
-
-
-
+function redirect($page)
+{
+    header('Location: '. $page .'');
+}
 

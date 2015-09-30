@@ -52,7 +52,7 @@ if(isset($_GET['id']))
                 else
                 {
             ?>
-            <form id="monformulaire" method="post" action="dbfunction.php?id=<?php echo $id; ?>"   
+            <form id="monformulaire" method="post" action="dbfunction.php?id=<?php echo $id; ?>">   
             <?php
                 }
             ?>
