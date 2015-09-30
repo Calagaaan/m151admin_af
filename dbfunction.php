@@ -116,6 +116,12 @@ function selectOneUser($id)
     return $RequeteData;   
 }
 
+function deleteUser($id)
+{
+    $RequeteSql =  'DELETE FROM user WHERE idUser ='.$id.';';
+    getConnexion()->query($RequeteSql);
+}
+
 
 
 

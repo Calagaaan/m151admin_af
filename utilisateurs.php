@@ -15,6 +15,11 @@ include 'phpToHtml.php';
         <h1>Utilisateurs dans la base de données</h1>
         <div>
         <?php
+            if(isset($_GET['idToDelete']))
+            {
+                $idToDelete = $_REQUEST['idToDelete'];
+                deleteUser($idToDelete);
+            }
             if(!isset($_GET['id']))
             {
                 buildTable(selectAllUsers());
