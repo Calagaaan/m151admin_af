@@ -62,35 +62,24 @@ function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, 
 
 function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id) {
     
-    // Si l'utilisateur n'a pas modifié son mot de passe
-    if($password == "")
+    if($password != "")
     {
-        // On prépare et lance la requête sans modification de mot de passe
-        $data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, description=:description WHERE idUser='.$id.'');
-        $data->bindParam(':nom', $nom, PDO::PARAM_STR);
-        $data->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-        $data->bindParam(':email', $email, PDO::PARAM_STR);
-        $data->bindParam(':date', $dateNaissance, PDO::PARAM_STR);
-        $data->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
-        $data->bindParam(':description', $description, PDO::PARAM_STR);
-        $data->execute();
+        $password = sha1($password);
+	$data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, password=:pass, description=:description WHERE idUser='.$id.'');
+	$data->bindParam(':pass', $password, PDO::PARAM_STR);
     }
-    // Au contraire si il l'a modifié
     else
     {
-        // On passe le password en sha1
-        $password = sha1($password);
-        // On prépare et lance la requête avec la modification du mot de passe
-        $data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, password=:pass, description=:description WHERE idUser='.$id.'');
-        $data->bindParam(':nom', $nom, PDO::PARAM_STR);
-        $data->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-        $data->bindParam(':email', $email, PDO::PARAM_STR);
-        $data->bindParam(':date', $dateNaissance, PDO::PARAM_STR);
-        $data->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
-        $data->bindParam(':pass', $password, PDO::PARAM_STR);
-        $data->bindParam(':description', $description, PDO::PARAM_STR);
-        $data->execute();
+	$data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, description=:description WHERE idUser='.$id.'');
     }
+
+    $data->bindParam(':nom', $nom, PDO::PARAM_STR);
+    $data->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+    $data->bindParam(':email', $email, PDO::PARAM_STR);
+    $data->bindParam(':date', $dateNaissance, PDO::PARAM_STR);
+    $data->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+    $data->bindParam(':description', $description, PDO::PARAM_STR);
+    $data->execute();
     
     // On renvoie l'utilisateur sur la page d'affichage des utilisateurs
     header("Location:utilisateurs.php");
