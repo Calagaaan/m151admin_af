@@ -19,6 +19,7 @@ function getConnexion()
         {
             $bdd = new PDO('mysql:host='.HOST.';dbname='.DBNAME, USER, PASS);
             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
             /* mysql:127.0.0.1=;dbname=m151adminaf,m151admin,m151admin */
         } 
         catch (PDOException $e) 
