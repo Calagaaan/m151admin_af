@@ -25,9 +25,7 @@ function getConnexion()
         {
             print "Erreur : " . $e->getMessage() . "<br/>";
             die();
-        }
-        
-        
+        }        
     }
     return $bdd;
 }
@@ -62,12 +60,14 @@ function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, 
 
 function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id) {
     
+    // Si l'utilisateur souhaite modifier son mot de passe
     if($password != "")
     {
         $password = sha1($password);
 	$data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, password=:pass, description=:description WHERE idUser='.$id.'');
 	$data->bindParam(':pass', $password, PDO::PARAM_STR);
     }
+    // Au contraire si il ne souhaite pas le modifier
     else
     {
 	$data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, description=:description WHERE idUser='.$id.'');
@@ -89,7 +89,7 @@ function selectAllUsers()
 {
     $RequeteSql =  'SELECT * FROM user';
     $RequeteData = getConnexion()->query($RequeteSql);
-    return $RequeteData;   
+    return $RequeteData;
 }
 
 function selectOneUser($id)

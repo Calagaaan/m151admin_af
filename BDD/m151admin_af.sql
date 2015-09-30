@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 23 Septembre 2015 à 15:52
+-- Généré le :  Mer 30 Septembre 2015 à 14:38
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.5.8
 
@@ -37,18 +37,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `description` text,
   PRIMARY KEY (`idUser`),
   UNIQUE KEY `pseudo` (`pseudo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `dateNaissance`, `pseudo`, `password`, `description`) VALUES
-(15, 'Favreo', 'Alano', 'favre.alan@gmail.como', '1995-10-07', 'Calagaaano', 'a0b6bf60beef61e6fd2dc95363d267b65bb98e13', 'I like trainso.'),
-(16, 'Leroy', 'Sacha', 'sacha.leroy@gmail.com', '1995-12-20', 'eXtraspe6men', 'bb0446b9e918a5cf8a31b4caf9ba99122ddbd498', 'J&#39;aime bien Ruben.'),
-(17, 'CARVALHO', 'Ruben', 'theking@gmail.como', '1996-09-13', 'TheKiing', '2e4ee22a1ec3f9c182a37b90566a76a27735b98a', 'J&#39;aime plus bien Sacha.'),
-(18, 'RAEVEN', 'MARCELA', 'what@what.com', '1996-07-26', 'Raelo', '5ed25af7b1ed23fb00122e13d7f74c4d8262acd8', 'Salut c&#39;est MOI.'),
-(19, 'Bertrand', 'Nico', 'nicoBERTRAND@yolo.com', '1997-07-18', 'Orion24_', 'a518defe4470f463153dbaa8f10c4a5ccd5a4b31', 'J&#39;aimerai comprendre.');
+(20, 'Favre', 'Alan', 'favre.alan@gmail.com', '1995-10-07', 'Calagaaan', 'a0b6bf60beef61e6fd2dc95363d267b65bb98e13', 'Salut.'),
+(21, 'Muraro', 'Jeff', 'jeff.muraro@gmail.com', '1997-03-01', 'MrZukXx', 'f6889fc97e14b42dec11a8c183ea791c5465b658', 'Homme swag.'),
+(22, 'Leroy', 'Sacha', 'sachaleroy95@hotmail.fr', '1995-12-20', 'eXtraspe6men', '49b3d0d369b66b67148f4e610e06eed7362fe517', 'Je suppose...'),
+(23, 'Marcelo', 'Rae Vennedict', 'rae.mrcl@eduge.ch', '1996-07-26', 'baecone', '01b307acba4f54f55aafc33bb06bbbf6ca803e9a', 'Everyday i&#39;m stalkiling');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
