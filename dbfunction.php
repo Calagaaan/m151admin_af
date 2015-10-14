@@ -40,11 +40,13 @@ if(isset($_REQUEST['connexion']))
 {
     $userinfo = login($pseudo, $password);
 
-    var_dump($userinfo);
-
     if(count($userinfo)>0)
     {
-      echo "login réussi!";
+      echo "Login success.";
+    }
+    else
+    {
+        redirect("login.php?error=true");
     }
 }
 
