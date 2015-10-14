@@ -15,18 +15,18 @@ function getConnexion()
     static $bdd = null;
     if($bdd == null)
     {
-        try 
+        try
         {
             $bdd = new PDO('mysql:host='.HOST.';dbname='.DBNAME, USER, PASS);
             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
+
             /* mysql:127.0.0.1=;dbname=m151adminaf,m151admin,m151admin */
-        } 
-        catch (PDOException $e) 
+        }
+        catch (PDOException $e)
         {
             print "Erreur : " . $e->getMessage() . "<br/>";
             die();
-        }        
+        }
     }
     return $bdd;
 }
@@ -36,16 +36,39 @@ if(isset($_REQUEST['envoyer']))
     ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description);
 }
 
+if(isset($_REQUEST['connexion']))
+{
+    $userinfo = login($pseudo, $password);
+
+    var_dump($userinfo);
+
+    if(count($userinfo)>0)
+    {
+      echo "login réussi!";
+    }
+}
+
 if(isset($_REQUEST['update']))
-{   
+{
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
     updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id);
+}
+
+function login($pseudo, $password)
+{
+    $pdo = getConnexion();
+
+    $RequeteSql = 'SELECT * FROM user WHERE pseudo = "' . $pseudo . '" AND password = "' . sha1($password) . '"';
+    $RequeteData = $pdo->query($RequeteSql);
+
+    return($RequeteData->fetchAll(PDO::FETCH_ASSOC));
+
 }
 
 function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description)
 {
     $password = sha1($password);
-    
+
     $data = getConnexion()->prepare('INSERT INTO user VALUES("", :nom, :prenom, :email, :date, :pseudo, :pass, :description)');
     $data->bindParam(':nom', $nom, PDO::PARAM_STR);
     $data->bindParam(':prenom', $prenom, PDO::PARAM_STR);
@@ -55,12 +78,12 @@ function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, 
     $data->bindParam(':pass', $password, PDO::PARAM_STR);
     $data->bindParam(':description', $description, PDO::PARAM_STR);
     $data->execute();
-    
+
     redirect("index.php");
 }
 
 function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id) {
-    
+
     // Si l'utilisateur souhaite modifier son mot de passe
     if($password != "")
     {
@@ -81,7 +104,7 @@ function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $
     $data->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
     $data->bindParam(':description', $description, PDO::PARAM_STR);
     $data->execute();
-    
+
     // On renvoie l'utilisateur sur la page d'affichage des utilisateurs
     redirect("utilisateurs.php");
 }
@@ -97,7 +120,7 @@ function selectOneUser($id)
 {
     $RequeteSql =  'SELECT * FROM user WHERE idUser ='.$id.';';
     $RequeteData = getConnexion()->query($RequeteSql);
-    return $RequeteData;   
+    return $RequeteData;
 }
 
 function deleteUser($id)
@@ -110,4 +133,3 @@ function redirect($page)
 {
     header('Location: '. $page .'');
 }
-
