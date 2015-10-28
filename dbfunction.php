@@ -43,6 +43,7 @@ function getConnexion()
 if(isset($_REQUEST['envoyer']))
 {
     ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description);
+    redirect("index.php");
 }
 
 if(isset($_REQUEST['connexion']))
@@ -71,6 +72,8 @@ if(isset($_REQUEST['update']))
 {
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
     updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id);
+    // On renvoie l'utilisateur sur la page d'affichage des utilisateurs
+    redirect("utilisateurs.php");
 }
 
 function login($pseudo, $password)
@@ -97,8 +100,6 @@ function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, 
     $data->bindParam(':pass', $password, PDO::PARAM_STR);
     $data->bindParam(':description', $description, PDO::PARAM_STR);
     $data->execute();
-
-    redirect("index.php");
 }
 
 function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id) {
@@ -124,8 +125,7 @@ function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $
     $data->bindParam(':description', $description, PDO::PARAM_STR);
     $data->execute();
 
-    // On renvoie l'utilisateur sur la page d'affichage des utilisateurs
-    redirect("utilisateurs.php");
+    
 }
 
 function selectAllUsers()

@@ -50,20 +50,7 @@ if(isset($_GET['id']))
     <body>
         <h1>Formulaire d'inscription</h1>
         <div>
-            <?php
-                if($modifUser == FALSE)
-                {
-            ?>
             <form id="monformulaire" method="post" action="dbfunction.php">
-            <?php
-                }
-                else
-                {
-            ?>
-            <form id="monformulaire" method="post" action="dbfunction.php">   
-            <?php
-                }
-            ?>
                 <label for="nom" >Nom : </label><input id="nom" type="text" name="nom" value="<?php echo $nom; ?>" required /><br /><br />
                 <label for="prenom" >Prénom : </label><input id="prenom" type="text" name="prenom" value="<?php echo $prenom; ?>" required /><br /><br />
                 <label for="email" >Email : </label><input id="email" type="email" name="email" value="<?php echo $email; ?>" required /><br /><br />
