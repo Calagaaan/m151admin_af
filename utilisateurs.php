@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <?php
+
 include 'dbfunction.php';
 include 'phpToHtml.php';
+
+$defaultVar = $_SESSION["stateSession"];
 
 ?>
 <html>
@@ -31,6 +34,9 @@ include 'phpToHtml.php';
             }
         ?>
         </div>
+        <?php
+            echo $defaultVar;
+        ?>
     </body>
 </html>
 

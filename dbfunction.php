@@ -1,5 +1,9 @@
 <?php
 
+session_start();
+
+$defaultVar = $_SESSION["stateSession"];
+
 $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
 $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -42,7 +46,9 @@ if(isset($_REQUEST['connexion']))
 
     if(count($userinfo)>0)
     {
-      echo "Login success.";
+        // Le login a réussi si l'on arrive ici
+        $_SESSION["stateSession"]="connected";
+        redirect("login.php");
     }
     else
     {

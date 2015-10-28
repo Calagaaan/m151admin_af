@@ -1,4 +1,9 @@
 <?php
+
+session_start();
+
+$defaultVar = $_SESSION["stateSession"];
+
 $error = "";
 ?>
 <html>
@@ -25,5 +30,8 @@ $error = "";
             <?php echo $error; ?><br />
             <input type="submit" name="connexion" value="Se Connecter" /><br /><br />
         </form>
+        <?php
+            echo $defaultVar;
+        ?>
     </body>
 </html>

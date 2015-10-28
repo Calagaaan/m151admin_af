@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <?php
+
 include 'dbfunction.php';
 include 'phpToHtml.php';
+
+$defaultVar = $_SESSION["stateSession"];
+
+
 
 // On part du principe que l'on n'est pas sur la page pour modifier un utilisateur
 $modifUser = false;
@@ -81,6 +86,9 @@ if(isset($_GET['id']))
                 ?>
             </form>
         </div>
+        <?php
+            echo $defaultVar;
+        ?>
     </body>
 </html>
 
