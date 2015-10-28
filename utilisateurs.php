@@ -11,6 +11,9 @@ if(isset($_SESSION['stateSession']))
     $defaultVar = $_SESSION["stateSession"];
 }
 
+if($defaultVar == "connected")
+{
+
 ?>
 <html>
     <head>
@@ -44,4 +47,11 @@ if(isset($_SESSION['stateSession']))
         ?>
     </body>
 </html>
+<?php
+}
+else
+{
+    redirect("login.php");
+}
+?>
 
