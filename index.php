@@ -60,7 +60,7 @@ if(isset($_GET['id']))
                 else
                 {
             ?>
-            <form id="monformulaire" method="post" action="dbfunction.php?id=<?php echo $id; ?>">   
+            <form id="monformulaire" method="post" action="dbfunction.php">   
             <?php
                 }
             ?>
@@ -82,6 +82,7 @@ if(isset($_GET['id']))
                     else
                     {
                 ?>
+                <input name="id" type="hidden" value="<?php echo $id; ?>" />
                 <input name="update" id="submit" type="submit" value="Envoyer" />
                 <a href="utilisateurs.php">Retour</a>
                 <?php

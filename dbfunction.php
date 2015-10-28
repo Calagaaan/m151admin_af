@@ -69,7 +69,7 @@ if(isset($_REQUEST['deconnexion']))
 
 if(isset($_REQUEST['update']))
 {
-    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+    $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
     updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id);
 }
 
