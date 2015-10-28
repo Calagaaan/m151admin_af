@@ -4,7 +4,12 @@
 include 'dbfunction.php';
 include 'phpToHtml.php';
 
-$defaultVar = $_SESSION["stateSession"];
+$defaultVar = "";
+
+if(isset($_SESSION['stateSession']))
+{
+    $defaultVar = $_SESSION["stateSession"];
+}
 
 ?>
 <html>

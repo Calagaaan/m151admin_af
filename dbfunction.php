@@ -2,7 +2,12 @@
 
 session_start();
 
-$defaultVar = $_SESSION["stateSession"];
+$defaultVar = "";
+
+if(isset($_SESSION['stateSession']))
+{
+    $defaultVar = $_SESSION["stateSession"];
+}
 
 $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
 $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -54,6 +59,12 @@ if(isset($_REQUEST['connexion']))
     {
         redirect("login.php?error=true");
     }
+}
+
+if(isset($_REQUEST['deconnexion']))
+{
+    session_destroy();
+    redirect("login.php");
 }
 
 if(isset($_REQUEST['update']))

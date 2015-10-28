@@ -2,8 +2,12 @@
 
 session_start();
 
-$defaultVar = $_SESSION["stateSession"];
+$defaultVar = "";
 
+if(isset($_SESSION['stateSession']))
+{
+    $defaultVar = $_SESSION["stateSession"];
+}
 $error = "";
 ?>
 <html>
@@ -23,6 +27,15 @@ $error = "";
                     $error = "L'utilisateur ou le mot de passe sont erronés.";
                 }
             }
+            
+            if($defaultVar == "connected")
+            {
+        ?>
+        <form action="dbfunction.php" method="post">
+            <input type="submit" name="deconnexion" value="Se Deconnecter" /><br /><br />
+        </form>
+        <?php
+            }else{
         ?>
         <form method="post" action="dbfunction.php">
             <input type="text" name="pseudo" placeholder="Pseudo" /><br /><br />
@@ -30,7 +43,9 @@ $error = "";
             <?php echo $error; ?><br />
             <input type="submit" name="connexion" value="Se Connecter" /><br /><br />
         </form>
+        
         <?php
+            }
             echo $defaultVar;
         ?>
     </body>
