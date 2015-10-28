@@ -123,9 +123,7 @@ function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $
     $data->bindParam(':date', $dateNaissance, PDO::PARAM_STR);
     $data->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
     $data->bindParam(':description', $description, PDO::PARAM_STR);
-    $data->execute();
-
-    
+    $data->execute();    
 }
 
 function selectAllUsers()
