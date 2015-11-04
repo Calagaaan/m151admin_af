@@ -4,16 +4,15 @@
 include 'dbfunction.php';
 include 'phpToHtml.php';
 
-$defaultVar = "";
+$stateConnection = "";
 
 if(isset($_SESSION['stateSession']))
 {
-    $defaultVar = $_SESSION["stateSession"];
+    $stateConnection = $_SESSION["stateSession"];
 }
 
-if($defaultVar == "connected")
+if($stateConnection == "connected")
 {
-
 ?>
 <html>
     <head>
@@ -42,9 +41,14 @@ if($defaultVar == "connected")
             }
         ?>
         </div>
+        <br />
         <?php
-            echo $defaultVar;
+            echo $stateConnection;
         ?>
+        <br /><br />
+        <a href="index.php">Index</a> -
+        <a href="login.php">Login</a> -
+        <a href="utilisateurs.php">Utilisateurs</a>
     </body>
 </html>
 <?php

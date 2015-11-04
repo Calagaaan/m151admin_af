@@ -2,11 +2,11 @@
 
 session_start();
 
-$defaultVar = "";
+$stateConnection = "";
 
 if(isset($_SESSION['stateSession']))
 {
-    $defaultVar = $_SESSION["stateSession"];
+    $stateConnection = $_SESSION["stateSession"];
 }
 
 $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -54,6 +54,11 @@ if(isset($_REQUEST['connexion']))
     {
         // Le login a réussi si l'on arrive ici
         $_SESSION["stateSession"]="connected";
+        foreach ($userinfo as $data)
+        {
+            $_SESSION['idUser'] = $data['idUser'];
+            $_SESSION['isAdmin'] = $data['isAdmin'];
+        }
         redirect("login.php");
     }
     else
@@ -91,7 +96,7 @@ function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, 
 {
     $password = sha1($password);
 
-    $data = getConnexion()->prepare('INSERT INTO user VALUES("", :nom, :prenom, :email, :date, :pseudo, :pass, :description)');
+    $data = getConnexion()->prepare('INSERT INTO user VALUES("", :nom, :prenom, :email, :date, :pseudo, :pass, :description, "")');
     $data->bindParam(':nom', $nom, PDO::PARAM_STR);
     $data->bindParam(':prenom', $prenom, PDO::PARAM_STR);
     $data->bindParam(':email', $email, PDO::PARAM_STR);

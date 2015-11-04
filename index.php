@@ -4,11 +4,11 @@
 include 'dbfunction.php';
 include 'phpToHtml.php';
 
-$defaultVar = "";
+$stateConnection = "";
 
 if(isset($_SESSION['stateSession']))
 {
-    $defaultVar = $_SESSION["stateSession"];
+    $stateConnection = $_SESSION["stateSession"];
 }
 
 // On part du principe que l'on n'est pas sur la page pour modifier un utilisateur
@@ -20,6 +20,7 @@ $email = "";
 $dateNaissance = "";
 $pseudo = "";
 $desc = "";
+$id = "";
 
 // On vérifie si une variable get id est présente. Si c'est le cas, c'est qu'on est là pour modifier un utilisateur.
 if(isset($_GET['id']))
@@ -30,7 +31,7 @@ if(isset($_GET['id']))
                 
     foreach ($tableau as $data) 
     {
-        $id = $data['idUser'];
+        $idUser = $data['idUser'];
         $nom = $data['nom'];
         $prenom = $data['prenom'];
         $email = $data['email'];
@@ -38,7 +39,10 @@ if(isset($_GET['id']))
         $pseudo = $data['pseudo'];
         $desc = $data['description'];
     }
+    
 }
+
+
 ?>
 <html>
     <head>
@@ -77,9 +81,14 @@ if(isset($_GET['id']))
                 ?>
             </form>
         </div>
+        <br />
         <?php
-            echo $defaultVar;
+            echo $stateConnection;
         ?>
+        <br /><br />
+        <a href="index.php">Index</a> -
+        <a href="login.php">Login</a> -
+        <a href="utilisateurs.php">Utilisateurs</a>
     </body>
 </html>
 

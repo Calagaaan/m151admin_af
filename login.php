@@ -2,11 +2,11 @@
 
 session_start();
 
-$defaultVar = "";
+$stateConnection = "";
 
 if(isset($_SESSION['stateSession']))
 {
-    $defaultVar = $_SESSION["stateSession"];
+    $stateConnection = $_SESSION["stateSession"];
 }
 $error = "";
 ?>
@@ -15,6 +15,7 @@ $error = "";
         <title>Connexion</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
+        <link href="style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <?php
@@ -28,7 +29,7 @@ $error = "";
                 }
             }
             
-            if($defaultVar == "connected")
+            if($stateConnection == "connected")
             {
         ?>
         <form action="dbfunction.php" method="post">
@@ -43,10 +44,14 @@ $error = "";
             <?php echo $error; ?><br />
             <input type="submit" name="connexion" value="Se Connecter" /><br /><br />
         </form>
-        
+        <br />
         <?php
             }
-            echo $defaultVar;
+            echo $stateConnection;
         ?>
+        <br /><br />
+        <a href="index.php">Index</a> -
+        <a href="login.php">Login</a> -
+        <a href="utilisateurs.php">Utilisateurs</a>
     </body>
 </html>
