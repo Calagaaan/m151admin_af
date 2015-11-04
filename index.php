@@ -103,5 +103,3 @@ if(isset($_GET['id']))
         <a href="utilisateurs.php">Utilisateurs</a>
     </body>
 </html>
-
-
