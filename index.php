@@ -5,10 +5,12 @@ include 'dbfunction.php';
 include 'phpToHtml.php';
 
 $stateConnection = "";
+$isAdmin = "";
 
 if(isset($_SESSION['stateSession']))
 {
     $stateConnection = $_SESSION["stateSession"];
+    $isAdmin = $_SESSION['isAdmin'];
 }
 
 // On part du principe que l'on n'est pas sur la page pour modifier un utilisateur
@@ -38,8 +40,7 @@ if(isset($_GET['id']))
         $dateNaissance = $data['dateNaissance'];
         $pseudo = $data['pseudo'];
         $desc = $data['description'];
-    }
-    
+    }    
 }
 
 
@@ -62,17 +63,28 @@ if(isset($_GET['id']))
                 <label for="pseudo" >Pseudo : </label><input id="pseudo" type="text" name="pseudo" value="<?php echo $pseudo; ?>" required /><br /><br />
                 <label for="pass" >Mot de passe : </label><input id="pass" type="password" name="pass" <?php if($modifUser == TRUE) { ?>placeholder="Leave blank to not modify."<?php } ?> /><br /><br />
                 <label for="description" >Description de vous : </label><textarea id="description" name="description" ><?php echo $desc; ?></textarea><br /><br />
-                <input id="reset" name="reset" type='reset' value='Rénitialiser' />
+                
                 <?php
                     if($modifUser == FALSE)
                     {
                 ?>
+                <input id="reset" name="reset" type='reset' value='Rénitialiser' />
                 <input name="envoyer" id="submit" type="submit" value="Envoyer" />
                 <?php
                     }
                     else
                     {
+                    if($isAdmin == true)
+                    {
                 ?>
+                <select name="userLevel">
+                    <option value='Utilisateur'>Utilisateur</option>
+                    <option value='Administrateur'>Administrateur</option>
+                </select><br /><br />
+                <?php
+                    }
+                ?>
+                <input id="reset" name="reset" type='reset' value='Rénitialiser' />
                 <input name="id" type="hidden" value="<?php echo $id; ?>" />
                 <input name="update" id="submit" type="submit" value="Envoyer" />
                 <a href="utilisateurs.php">Retour</a>
