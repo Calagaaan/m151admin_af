@@ -12,13 +12,7 @@ $level = filter_input(INPUT_POST, 'userLevel', FILTER_SANITIZE_SPECIAL_CHARS);
 if(isset($_REQUEST['envoyer']))
 {
     ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description);
-    redirect("index.php");
-}
-
-if(isset($_REQUEST['deconnexion']))
-{
-    session_destroy();
-    redirect("login.php");
+    
 }
 
 if(isset($_REQUEST['update']))
@@ -37,6 +31,12 @@ if(isset($_REQUEST['update']))
     updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id, $level);
     // On renvoie l'utilisateur sur la page d'affichage des utilisateurs
     redirect("utilisateurs.php");
+}
+
+if(isset($_REQUEST['deconnexion']))
+{
+    session_destroy();
+    redirect("login.php");
 }
 
 function redirect($page)
