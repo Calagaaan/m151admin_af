@@ -19,6 +19,7 @@ $dateNaissance = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_SPECIAL_CHARS)
 $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_SPECIAL_CHARS);
 $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_SPECIAL_CHARS);
+$level = filter_input(INPUT_POST, 'userLevel', FILTER_SANITIZE_SPECIAL_CHARS);
 
 require_once 'mysql.inc.php';
 
@@ -79,7 +80,17 @@ if(isset($_REQUEST['deconnexion']))
 if(isset($_REQUEST['update']))
 {
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
-    updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id);
+    if($level == "Utilisateur")
+    {
+        $level = 0;
+    }
+    else
+    {
+        $level = 1;
+    }
+    
+    // Envoyer vers la fonction
+    updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id, $level);
     // On renvoie l'utilisateur sur la page d'affichage des utilisateurs
     redirect("utilisateurs.php");
 }
@@ -110,19 +121,19 @@ function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, 
     $data->execute();
 }
 
-function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id) {
+function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $id, $level) {
 
     // Si l'utilisateur souhaite modifier son mot de passe
     if($password != "")
     {
         $password = sha1($password);
-	$data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, password=:pass, description=:description WHERE idUser='.$id.'');
+	$data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, password=:pass, description=:description, isAdmin=:level WHERE idUser='.$id.'');
 	$data->bindParam(':pass', $password, PDO::PARAM_STR);
     }
     // Au contraire si il ne souhaite pas le modifier
     else
     {
-	$data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, description=:description WHERE idUser='.$id.'');
+	$data = getConnexion()->prepare('UPDATE user SET nom=:nom, prenom=:prenom, email=:email, dateNaissance=:date, pseudo=:pseudo, description=:description, isAdmin=:level WHERE idUser='.$id.'');
     }
 
     $data->bindParam(':nom', $nom, PDO::PARAM_STR);
@@ -131,6 +142,7 @@ function updateUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $
     $data->bindParam(':date', $dateNaissance, PDO::PARAM_STR);
     $data->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
     $data->bindParam(':description', $description, PDO::PARAM_STR);
+    $data->bindParam(':level', $level, PDO::PARAM_STR);
     $data->execute();    
 }
 
