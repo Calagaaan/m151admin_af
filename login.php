@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+include 'dbfunction.php';
 
 $stateConnection = "";
 
@@ -8,7 +8,31 @@ if(isset($_SESSION['stateSession']))
 {
     $stateConnection = $_SESSION["stateSession"];
 }
+
 $error = "";
+
+$pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : "";
+
+if(isset($_REQUEST['connexion']))
+{
+    $userinfo = login($pseudo, $password);
+
+    if(count($userinfo)>0)
+    {
+        // Le login a réussi si l'on arrive ici
+        $_SESSION["stateSession"]="connected";
+        foreach ($userinfo as $data)
+        {
+            $_SESSION['idUser'] = $data['idUser'];
+            $_SESSION['isAdmin'] = $data['isAdmin'];
+        }
+        redirect("login.php");
+    }
+    else
+    {
+        $error = "Pseudo et/ou mot de passe incorrect.";
+    }
+}
 ?>
 <html>
     <head>
@@ -38,8 +62,8 @@ $error = "";
         <?php
             }else{
         ?>
-        <form method="post" action="dbfunction.php">
-            <input type="text" name="pseudo" placeholder="Pseudo" /><br /><br />
+        <form method="post" action="#">
+            <input type="text" name="pseudo" placeholder="Pseudo" value="<?php echo $pseudo; ?>" /><br /><br />
             <input type="password" name="pass" placeholder="Mot de Passe" /><br />
             <?php echo $error; ?><br />
             <input type="submit" name="connexion" value="Se Connecter" /><br /><br />

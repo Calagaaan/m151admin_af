@@ -15,27 +15,6 @@ if(isset($_REQUEST['envoyer']))
     redirect("index.php");
 }
 
-if(isset($_REQUEST['connexion']))
-{
-    $userinfo = login($pseudo, $password);
-
-    if(count($userinfo)>0)
-    {
-        // Le login a réussi si l'on arrive ici
-        $_SESSION["stateSession"]="connected";
-        foreach ($userinfo as $data)
-        {
-            $_SESSION['idUser'] = $data['idUser'];
-            $_SESSION['isAdmin'] = $data['isAdmin'];
-        }
-        redirect("login.php");
-    }
-    else
-    {
-        redirect("login.php?error=true");
-    }
-}
-
 if(isset($_REQUEST['deconnexion']))
 {
     session_destroy();

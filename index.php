@@ -6,11 +6,14 @@ include 'phpToHtml.php';
 
 $stateConnection = "";
 $isAdmin = "";
+$isHimself = false;
+$idSession = "";
 
 if(isset($_SESSION['stateSession']))
 {
     $stateConnection = $_SESSION["stateSession"];
     $isAdmin = $_SESSION['isAdmin'];
+    $idSession = $_SESSION['idUser'];
 }
 
 // On part du principe que l'on n'est pas sur la page pour modifier un utilisateur
@@ -43,7 +46,13 @@ if(isset($_GET['id']))
     }    
 }
 
+if($idSession == $id)
+{
+    $isHimself = true;
+}
 
+if($isAdmin == true || $isHimself == true)
+{
 ?>
 <html>
     <head>
@@ -61,7 +70,7 @@ if(isset($_GET['id']))
                 <label for="email" >Email : </label><input id="email" type="email" name="email" value="<?php echo $email; ?>" required /><br /><br />
                 <label for="date" >Date de naissance : </label><input id="date" type="date" name="date" value="<?php echo $dateNaissance; ?>" required /><br /><br />
                 <label for="pseudo" >Pseudo : </label><input id="pseudo" type="text" name="pseudo" value="<?php echo $pseudo; ?>" required /><br /><br />
-                <label for="pass" >Mot de passe : </label><input id="pass" type="password" name="pass" <?php if($modifUser == TRUE) { ?>placeholder="Leave blank to not modify."<?php } ?> /><br /><br />
+                <label for="pass" >Mot de passe : </label><input id="pass" type="password" name="pass" <?php if($modifUser == TRUE) { ?>placeholder="Leave blank to not modify."<?php } ?> required="" /><br /><br />
                 <label for="description" >Description de vous : </label><textarea id="description" name="description" ><?php echo $desc; ?></textarea><br /><br />
                 
                 <?php
@@ -103,3 +112,23 @@ if(isset($_GET['id']))
         <a href="utilisateurs.php">Utilisateurs</a>
     </body>
 </html>
+<?php
+}
+else
+{
+?>
+<html>
+    <head>
+        <title>Formulaire</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1>Accès refusé</h1>
+    </body>
+</html>
+<?php 
+} 
+?>
+
