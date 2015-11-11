@@ -4,6 +4,9 @@ session_start();
 
 $stateConnection = "";
 
+//TODO sortir tout accès au POST, SESSION et autre dans ce fichier, et le mettre là où vous faites l'appel
+//comme ça ici on a juste une bibliothèque de fonctions d'accès la BD
+
 if(isset($_SESSION['stateSession']))
 {
     $stateConnection = $_SESSION["stateSession"];
