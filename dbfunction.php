@@ -41,11 +41,11 @@ function login($pseudo, $password)
 
 }
 
-function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description)
+function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, $description, $classe)
 {
     $password = sha1($password);
 
-    $data = getConnexion()->prepare('INSERT INTO user VALUES("", :nom, :prenom, :email, :date, :pseudo, :pass, :description, "")');
+    $data = getConnexion()->prepare('INSERT INTO user VALUES("", :nom, :prenom, :email, :date, :pseudo, :pass, :description, "", :classe)');
     $data->bindParam(':nom', $nom, PDO::PARAM_STR);
     $data->bindParam(':prenom', $prenom, PDO::PARAM_STR);
     $data->bindParam(':email', $email, PDO::PARAM_STR);
@@ -53,6 +53,7 @@ function ajouterUser($nom, $prenom, $email, $dateNaissance, $pseudo, $password, 
     $data->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
     $data->bindParam(':pass', $password, PDO::PARAM_STR);
     $data->bindParam(':description', $description, PDO::PARAM_STR);
+    $data->bindParam(':classe', $classe, PDO::PARAM_STR);
     $data->execute();
 }
 
