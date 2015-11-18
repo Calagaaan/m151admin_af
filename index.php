@@ -4,8 +4,6 @@
 include 'dbfunction.php';
 include 'phpToHtml.php';
 
-
-
 $stateConnection = "";
 $isAdmin = "";
 $isHimself = false;
@@ -48,6 +46,9 @@ if(isset($_GET['id']))
     }    
 }
 
+// Récupérer les classes
+$classes = getClasses();
+
 if($idSession == $id)
 {
     $isHimself = true;
@@ -70,6 +71,15 @@ if($isAdmin == true || $isHimself == true)
                 <label for="nom" >Nom : </label><input id="nom" type="text" name="nom" value="<?php echo $nom; ?>" required /><br /><br />
                 <label for="prenom" >Prénom : </label><input id="prenom" type="text" name="prenom" value="<?php echo $prenom; ?>" required /><br /><br />
                 <label for="email" >Email : </label><input id="email" type="email" name="email" value="<?php echo $email; ?>" required /><br /><br />
+                <label for="classe">Classe :</label>
+                <select name="classe">
+                    <?php
+                    foreach ($classes as $data)
+                    {
+                        echo '<option value="'. $data['idClasse'] .'">'. $data['label'] .'</option>';
+                    }
+                    ?>
+                </select><br /><br />
                 <label for="date" >Date de naissance : </label><input id="date" type="date" name="date" value="<?php echo $dateNaissance; ?>" required /><br /><br />
                 <label for="pseudo" >Pseudo : </label><input id="pseudo" type="text" name="pseudo" value="<?php echo $pseudo; ?>" required /><br /><br />
                 <label for="pass" >Mot de passe : </label><input id="pass" type="password" name="pass" <?php if($modifUser == TRUE) { ?>placeholder="Leave blank to not modify."<?php } ?> /><br /><br />

@@ -101,3 +101,10 @@ function deleteUser($id)
     getConnexion()->query($RequeteSql);
 }
 
+function getClasses()
+{
+    $RequeteSql =  'SELECT * FROM classes;';
+    $RequeteData = getConnexion()->query($RequeteSql);
+    return $RequeteData;
+}
+
