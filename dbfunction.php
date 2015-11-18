@@ -109,3 +109,10 @@ function getClasses()
     return $RequeteData;
 }
 
+function getSports()
+{
+    $RequeteSql =  'SELECT * FROM sports;';
+    $RequeteData = getConnexion()->query($RequeteSql);
+    return $RequeteData;
+}
+
