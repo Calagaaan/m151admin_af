@@ -5,7 +5,24 @@ include 'phpToHtml.php';
 
 $sports = getSports();
 
+if(isset($_SESSION['stateSession']))
+{
+    $stateConnection = $_SESSION["stateSession"];
+}
 
+if(isset($_REQUEST['sendSports']))
+{
+    $idUser = $_SESSION['idUser'];
+    $sport1 = $_POST['sport1'];
+    $sport2 = $_POST['sport2'];
+    $sport3 = $_POST['sport3'];
+    $sport4 = $_POST['sport4'];
+    
+    choixSports($idUser, $sport1, $sport2, $sport3, $sport4);
+}
+
+if($stateConnection == "connected")
+{
 ?>
 <html>
     <head>
@@ -57,5 +74,11 @@ $sports = getSports();
         </form>
     </body>
 </html>
+<?php
+}
+ else {
+    redirect("login.php");
+}
+?>
         
 
