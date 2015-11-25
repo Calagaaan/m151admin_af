@@ -18,6 +18,7 @@ function getConnexion()
         {
             $bdd = new PDO('mysql:host='.HOST.';dbname='.DBNAME, USER, PASS);
             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $bdd->exec('SET NAMES UTF8');
 
             /* mysql:127.0.0.1=;dbname=m151adminaf,m151admin,m151admin */
         }
@@ -86,14 +87,14 @@ function selectAllUsers()
 {
     $RequeteSql =  'SELECT * FROM user';
     $RequeteData = getConnexion()->query($RequeteSql);
-    return $RequeteData;
+    return($RequeteData->fetchAll(PDO::FETCH_ASSOC));
 }
 
 function selectOneUser($id)
 {
     $RequeteSql =  'SELECT * FROM user WHERE idUser ='.$id.';';
     $RequeteData = getConnexion()->query($RequeteSql);
-    return $RequeteData;
+    return($RequeteData->fetchAll(PDO::FETCH_ASSOC));
 }
 
 function deleteUser($id)
@@ -106,13 +107,13 @@ function getClasses()
 {
     $RequeteSql =  'SELECT * FROM classes;';
     $RequeteData = getConnexion()->query($RequeteSql);
-    return $RequeteData;
+    return($RequeteData->fetchAll(PDO::FETCH_ASSOC));
 }
 
 function getSports()
 {
     $RequeteSql =  'SELECT * FROM sports;';
     $RequeteData = getConnexion()->query($RequeteSql);
-    return $RequeteData;
+    return($RequeteData->fetchAll(PDO::FETCH_ASSOC));
 }
 

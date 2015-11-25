@@ -48,7 +48,8 @@ if($stateConnection == "connected")
         <br /><br />
         <a href="index.php">Index</a> -
         <a href="login.php">Login</a> -
-        <a href="utilisateurs.php">Utilisateurs</a>
+        <a href="utilisateurs.php">Utilisateurs</a> -
+        <a href="choisirSport.php">Chosir un sport</a>
     </body>
 </html>
 <?php
