@@ -85,7 +85,8 @@ if($stateConnection == "connected")
 </html>
 <?php
 }
- else {
+else 
+{
     redirect("login.php");
 }
 ?>

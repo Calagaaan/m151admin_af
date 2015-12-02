@@ -35,7 +35,7 @@ function login($pseudo, $password)
 {
     $pdo = getConnexion();
 
-    $RequeteSql = 'SELECT * FROM user WHERE pseudo = "' . $pseudo . '" AND password = "' . sha1($password) . '"';
+    $RequeteSql = 'SELECT * FROM user WHERE BINARY pseudo = "' . $pseudo . '" AND password = "' . sha1($password) . '"';
     $RequeteData = $pdo->query($RequeteSql);
 
     return($RequeteData->fetchAll(PDO::FETCH_ASSOC));
