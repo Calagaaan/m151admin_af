@@ -117,8 +117,11 @@ function getSports()
     return($RequeteData->fetchAll(PDO::FETCH_ASSOC));
 }
 
-function choixSports($idUser, $sport1, $sport2, $sport3, $sport4)
+function insertSports($idUser, $sport1, $sport2, $sport3, $sport4)
 {
+    try {
+    getConnexion()->beginTransaction();
+    
     $req1 = getConnexion()->prepare('INSERT INTO choix VALUES(:sport1, :idUser, 1 )');
     $req1->bindParam(':sport1', $sport1, PDO::PARAM_STR);
     $req1->bindParam(':idUser', $idUser, PDO::PARAM_STR);
@@ -138,5 +141,16 @@ function choixSports($idUser, $sport1, $sport2, $sport3, $sport4)
     $req4->bindParam(':sport4', $sport4, PDO::PARAM_STR);
     $req4->bindParam(':idUser', $idUser, PDO::PARAM_STR);
     $req4->execute();
+    
+    getConnexion()->commit();
+    
+    return true;
+    }
+    catch (Exception $e)
+    {
+        getConnexion()->rollBack();
+        
+        return false;
+    }
 }
 

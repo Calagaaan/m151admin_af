@@ -18,7 +18,16 @@ if(isset($_REQUEST['sendSports']))
     $sport3 = $_POST['sport3'];
     $sport4 = $_POST['sport4'];
     
-    choixSports($idUser, $sport1, $sport2, $sport3, $sport4);
+    $result = insertSports($idUser, $sport1, $sport2, $sport3, $sport4);
+    
+    if($result == true)
+    {
+        echo "Merci d'avoir choisi vos sports.";
+    }
+    else
+    {
+        echo "Vous ne pouvez pas choisir deux fois le même sport";
+    }
 }
 
 if($stateConnection == "connected")
