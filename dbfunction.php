@@ -145,11 +145,11 @@ function insertSports($idUser, $sport1, $sport2, $sport3, $sport4)
     getConnexion()->commit();
     
     return true;
+    
     }
     catch (Exception $e)
     {
         getConnexion()->rollBack();
-        
         return false;
     }
 }
